@@ -16,7 +16,7 @@ class Pie_chart extends Chart {
     radius = chartWidth/2;
     for (int i = 0; i < data.size; i++) {
          this.data = data;
-         total += data.dataPoints[i].value; 
+           total += data.dataPoints[i].value; 
       }
   }
   @Override

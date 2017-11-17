@@ -60,7 +60,7 @@ public class ExperimentKeeper{
     //      Note that each data holds all datapoints that will be projected in one chart
     for(int i = 0; i < dataset.length; i++)
       if(i <= 4) charts[i] = new BarChart(chartX, chartY, chartWidth, chartHeight, dataset[i]);
-      else charts[i] = new Pie_chart(dataset[i], chartX, chartY, chartWidth, chartHeight);
+      else charts[i] = new RadialChart(dataset[i], chartX, chartY, chartWidth, chartHeight);
 
     return charts;
   }

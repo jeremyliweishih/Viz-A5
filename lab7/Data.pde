@@ -16,7 +16,7 @@ public class Data{
      }
        
     for(int i = 0; i < size; i++){
-       float value = random(100);
+       float value = random(20, 100);
        
        DataPoint dp;
        
@@ -62,6 +62,7 @@ public class Data{
   Arrays.sort(arr);
   return arr;
  }
+ 
 public float getMax(){
    float max = dataPoints[0].value;
    for(DataPoint dp : dataPoints){
