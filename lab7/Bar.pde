@@ -6,16 +6,20 @@ class Bar {
   float x, y;
   float w, h;
   boolean marked;
+  boolean isColor;
+
   
-  
-  Bar(float w, float h, float x, float y, float value, boolean marked) {
+  Bar(float w, float h, float x, float y, float value, boolean marked, boolean isColor, color c) {
     this.w = w;
     this.h = h;
     this.x = x;
     this.y = y;
     this.value = value;
     this.marked = marked;
-    c1 = color(255, 255, 255);
+    this.isColor = isColor;
+
+     this.c1 = color(255);
+     this.c2 = c;
     currColor = c1; 
  } 
  
@@ -27,10 +31,11 @@ class Bar {
  void drawBar() {
    
     stroke(0);
-    fill(currColor);
+    if(isColor && marked) fill(this.c2); 
+    else fill(c1);
     rect(x, y, w, h);
     
-    if (marked) {
+    if (marked && !this.isColor) {
        strokeWeight(5);
        point( x + (w/2), y + (h/2)); 
     }

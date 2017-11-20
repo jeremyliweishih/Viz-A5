@@ -3,7 +3,7 @@ import java.util.UUID;
 public class ExperimentKeeper{
   String id = UUID.randomUUID().toString();
   private final String PARTICIPANT_ID     = "p" + id; //ToDo: assign a unique id for each participant
-  private static final int NUMBER_OF_TRIALS      = 10;    //ToDo: deside # trials per participant
+  private static final int NUMBER_OF_TRIALS      = 20;    //ToDo: deside # trials per participant
   private static final int NUMBER_OF_DATA_POINTS = 10;   //ToDo: deside # data points per trial
 
   private static final int STATE_PROLOGUE = 0;
@@ -47,7 +47,8 @@ public class ExperimentKeeper{
     //      Note that the "dataset" holds all data that will be used in one experiment
     
     for(int i = 0; i < numberOfTrials; i++){
-       dataset[i] = new Data(numberOfDataPointPerTrial); 
+       if(i < 10) dataset[i] = new Data(numberOfDataPointPerTrial); 
+       else dataset[i] = new Data(numberOfDataPointPerTrial, true);
     }
 
     return dataset;
@@ -59,8 +60,13 @@ public class ExperimentKeeper{
     //ToDo: decide how to generate your visualization for each data (See also Chart.pde and SampleChart.pde)
     //      Note that each data holds all datapoints that will be projected in one chart
     for(int i = 0; i < dataset.length; i++)
-      if(i <= 4) charts[i] = new BarChart(chartX, chartY, chartWidth, chartHeight, dataset[i]);
-      else charts[i] = new RadialChart(dataset[i], chartX, chartY, chartWidth, chartHeight);
+      if(i < 5) charts[i] = new BarChart(chartX, chartY, chartWidth, chartHeight, dataset[i], false, false);
+      else if (i < 10) charts[i] = new RadialChart(dataset[i], chartX, chartY, chartWidth, chartHeight);
+      else if (i < 15) {
+        charts[i] = new BarChart(chartX, chartY, chartWidth, chartHeight, dataset[i], true, false);
+      } else {
+        charts[i] = new BarChart(chartX, chartY, chartWidth, chartHeight, dataset[i], true, true);
+      }
 
     return charts;
   }
@@ -111,8 +117,10 @@ public class ExperimentKeeper{
             
             float truePercentage = (one / two) * (100);     //ToDo: decide how to compute the right answer
             float reportedPercentage = Float.parseFloat(this.answer); //ToDo: Note that "this.answer" contains what the participant inputed
-            float error = log2(abs(reportedPercentage - truePercentage) + (1/8));              //ToDo: decide how to compute the log error from Cleveland and McGill (see the handout for details)
-
+            float error = 0;
+            if(abs(reportedPercentage - truePercentage) >= 1)){
+              error = log2(abs(reportedPercentage - truePercentage) + (1/8));              //ToDo: decide how to compute the log error from Cleveland and McGill (see the handout for details)
+            }
             TableRow row = this.result.addRow();
             row.setString("PartipantID", this.participantID);
             row.setInt("TrialIndex", this.currentTrialIndex);

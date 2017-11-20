@@ -4,8 +4,9 @@
   float value;
   float x, y;
   float w, h, angle;
+  boolean marked;
   
-  RadBar(float w, float h, String name, float x, float y, float value, float angle) {
+  RadBar(float w, float h, String name, float x, float y, float value, float angle, boolean marked) {
     this.name = name;   
     this.w = w;
     this.h = h;
@@ -13,6 +14,7 @@
     this.y = y;
     this.angle = angle;
     this.value = value;
+    this.marked = marked;
     c1 = color(255, 255, 255);
     c2 = color(55, 206, 229);
     currColor = c1; 
@@ -25,9 +27,14 @@
  void drawBar() {
     stroke(0);
     fill(currColor);
-    pushMatrix();
+    pushMatrix();  
     rotate(angle);
     rect(x, y, w, h);
+    if(marked){
+       strokeWeight(5);
+       point((x+w)/2, (y+h)/2 + 5); 
+    }
+    strokeWeight(1);
     popMatrix();
   }
     

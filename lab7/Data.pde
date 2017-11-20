@@ -32,6 +32,28 @@ public class Data{
     //ToDo: how to generate data points and mark two of the data points
   }
   
+    public Data(int size, boolean c){
+    this.size = size;
+    this.dataPoints = new DataPoint[size];
+     float d1 = random(1, 9);
+     float d2  = d1 + 1;
+
+    for(int i = 0; i < size; i++){
+       float value = random(20, 100);
+       
+       DataPoint dp;
+       
+       if(i == (int)d1 || i == (int)d2){
+         dp = new DataPoint(value, true);
+       }
+       else dp = new DataPoint(value, false);
+       
+       
+       dataPoints[i] = dp;
+    }
+
+    //ToDo: how to generate data points and mark two of the data points
+  }
  public float getMin(){
    float min = dataPoints[0].value;
    for(DataPoint dp : dataPoints){

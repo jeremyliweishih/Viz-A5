@@ -36,7 +36,7 @@ class RadialChart extends Chart {
    float increm = blue(buff) / d.size();  
    float angle = 0;
    for (int i = 0; i < d.size(); i++) {
-     bars[i] = new RadBar(barWidth, d.dataPoints[i].getValue() * yScale, "", 0, 0, d.dataPoints[i].getValue(), angle);
+     bars[i] = new RadBar(barWidth, d.dataPoints[i].getValue() * yScale, "", 0, 0, d.dataPoints[i].getValue(), angle, d.dataPoints[i].isMarked());
      angle += angleIncrem;
      bars[i].setBuffColor(buff);
      buff = color(red(buff), green(buff), blue(buff)-increm);
@@ -120,7 +120,7 @@ class RadialChart extends Chart {
      ellipse(0, 0, this.increm1, this.increm1);
      popMatrix();
      strokeWeight(5);
-     point(chartW/2 + chartX, chartH/2 + chartY);
+     //point(chartW/2 + chartX, chartH/2 + chartY);
      strokeWeight(1);
  }
  

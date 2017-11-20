@@ -15,9 +15,11 @@ class BarChart extends Chart{
   float yAxisLen;
   float ySpacing;
   int chartWidth, chartHeight, chartX, chartY;
+  boolean isColor;
+  boolean contrast;
 
 
-  BarChart(int chartX, int chartY, int chartWidth, int chartHeight, Data data) {
+  BarChart(int chartX, int chartY, int chartWidth, int chartHeight, Data data, boolean isColor, boolean contrast) {
     super(data, chartX, chartY, chartWidth, chartHeight, "Bar chart");
     this.data = data;
     this.chartX = chartX;
@@ -32,6 +34,8 @@ class BarChart extends Chart{
     this.bars = new Bar[this.xNum];
     this.spacing = (chartWidth)/xNum; 
     this.barWidth = this.barFill * spacing;
+    this.isColor = isColor;
+    this.contrast = contrast;
     calcStuff();
   }
   
@@ -45,17 +49,27 @@ class BarChart extends Chart{
     float xStart = this.chartX; 
     ySpacing = (yAxisLen) / this.yMax;  
     
-   
+   color c1 = color(random(255), random(255), random(255));
+   color c2 = color(random(60), random(255), random(255));
+   boolean first = false;
     for (int i = 0; i < xNum; i++) {
         float x, y; 
         float val = this.data.dataPoints[i].getValue();
         boolean marked = this.data.dataPoints[i].isMarked();
         float barHeight = val * ySpacing; 
         x = xStart + this.spacing * i; 
-        
         y = (yAxisLen - barHeight + chartY);
         println(x, this.spacing, i);
-        Bar bar = new Bar(this.barWidth, barHeight, x, y, val, marked);
+        Bar bar;
+        if(contrast && marked){
+            if (!first){
+              bar = new Bar(this.barWidth, barHeight, x, y, val, marked, isColor, c1);
+              first = true;
+            }
+              
+            else  bar = new Bar(this.barWidth, barHeight, x, y, val, marked, isColor, c2);
+        }
+        else bar = new Bar(this.barWidth, barHeight, x, y, val, marked, isColor, c1);
         bars[i] = bar;   
     }
     
