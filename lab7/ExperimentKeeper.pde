@@ -118,7 +118,7 @@ public class ExperimentKeeper{
             float truePercentage = (one / two) * (100);     //ToDo: decide how to compute the right answer
             float reportedPercentage = Float.parseFloat(this.answer); //ToDo: Note that "this.answer" contains what the participant inputed
             float error = 0;
-            if(abs(reportedPercentage - truePercentage) >= 1)){
+            if(abs(reportedPercentage - truePercentage) >= 1){
               error = log2(abs(reportedPercentage - truePercentage) + (1/8));              //ToDo: decide how to compute the log error from Cleveland and McGill (see the handout for details)
             }
             TableRow row = this.result.addRow();
